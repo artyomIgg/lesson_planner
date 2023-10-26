@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lesson_planner/router/app_router.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.appRouter});
+
+  final AppRouter appRouter;
 
   @override
   Widget build(BuildContext context) {
-    final appRouter = AppRouter();
-
     return MaterialApp.router(
       title: 'Calendar Demo',
       debugShowCheckedModeBanner: false,
