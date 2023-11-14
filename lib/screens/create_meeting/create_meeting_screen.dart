@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lesson_planner/screens/create_meeting/widgets/change_date_button.dart';
+import 'package:lesson_planner/screens/create_meeting/widgets/date_picker_modal.dart';
+import 'package:lesson_planner/utils/my_dialog_util.dart';
 
 @RoutePage()
 class CreateMeetingScreen extends StatefulWidget {
@@ -26,7 +29,9 @@ class _CreateMeetingScreenState extends State<CreateMeetingScreen> {
             padding: const EdgeInsets.only(bottom: 52),
             child: Column(
               children: [
-                _changeDateButton(),
+                ChangeDateButton(
+                  onPressed: () => _showDatePicker(context),
+                ),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -87,33 +92,33 @@ class _CreateMeetingScreenState extends State<CreateMeetingScreen> {
     return timeCells;
   }
 
-  // button to change date
-  Widget _changeDateButton() {
-    return CupertinoButton(
-      onPressed: () {
-        _showDatePicker(context);
-      },
-      padding: const EdgeInsets.all(0),
-      child: Container(
-        height: 60,
-        width: 120,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Center(
-          child: Text(
-            'Change Date',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // // button to change date
+  // Widget _changeDateButton() {
+  //   return CupertinoButton(
+  //     onPressed: () {
+  //       _showDatePicker(context);
+  //     },
+  //     padding: const EdgeInsets.all(0),
+  //     child: Container(
+  //       height: 60,
+  //       width: 120,
+  //       decoration: BoxDecoration(
+  //         color: Colors.grey[200],
+  //         borderRadius: BorderRadius.circular(8),
+  //       ),
+  //       child: const Center(
+  //         child: Text(
+  //           'Change Date',
+  //           style: TextStyle(
+  //             color: Colors.black,
+  //             fontSize: 16,
+  //             fontWeight: FontWeight.w600,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void onCellTap(String time) {
     if (selectedTimes.contains(time)) {
@@ -128,39 +133,45 @@ class _CreateMeetingScreenState extends State<CreateMeetingScreen> {
   }
 
   //showModalBottomSheet date picker, cant select date before now
-  void _showDatePicker(BuildContext context) {
-    showModalBottomSheet(
+  Future<void> _showDatePicker(
+    BuildContext context,
+  ) async {
+    if(selectedDate.isBefore(DateTime.now())) {
+      selectedDate = DateTime.now();
+    }
+    await MyDialogUtil.showMyModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 300,
-          child: Column(
-            children: [
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    selectedDate;
-                  });
-                  Navigator.pop(context);
-                },
-                child: const Text('Done'),
-              ),
-              Expanded(
-                child: CupertinoDatePicker(
-                  initialDateTime: DateTime.now(),
-                  onDateTimeChanged: (DateTime newDate) {
-                    selectedDate = newDate;
-                  },
-                  minimumDate: DateTime.now()
-                      .subtract(const Duration(milliseconds: 200)),
-                  maximumDate: DateTime.now().add(const Duration(days: 7)),
-                  mode: CupertinoDatePickerMode.date,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+      child: DatePickerModal(
+          selectedDate: selectedDate,
+          onDateChanged: (DateTime date) {
+            // Navigator.of(context).pop();
+            // setState(() {
+            setState(() {
+              if (isCurrentDate(date)) {
+                final DateTime now = DateTime.now();
+                date = date.copyWith(
+                  hour: now.hour,
+                  minute: now.minute,
+                  second: now.second,
+                  millisecond: now.millisecond,
+                  microsecond: now.microsecond,
+                );
+              }
+              Navigator.of(context).pop();
+              selectedDate = date;
+            });
+            // });
+          }),
+    ).then((value) {
+      return value is DateTime ? value : selectedDate;
+    });
+  }
+
+  // check if current date, not current time
+  bool isCurrentDate(DateTime date) {
+    final DateTime now = DateTime.now();
+    return date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day;
   }
 }
