@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_planner/router/app_router.dart';
+import 'package:lesson_planner/constants/constants.dart' as c;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.appRouter});
@@ -11,10 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Calendar Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
+      theme: c.MyTheme.mainAppTheme,
       routerConfig: appRouter.config(),
     );
   }
