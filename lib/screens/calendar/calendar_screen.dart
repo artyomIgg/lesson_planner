@@ -1,28 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lesson_planner/providers/appointment_provider/appointment_state_provider.dart';
 import 'package:lesson_planner/utils/calendar_util.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 @RoutePage()
-class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({super.key});
+class CalendarScreen extends ConsumerWidget {
+  CalendarScreen({super.key});
+
+  final CalendarController calendarController = CalendarController();
 
   @override
-  State<CalendarScreen> createState() => _CalendarScreen();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appointments = ref.watch(appointmentStateProvider).appointments;
 
-class _CalendarScreen extends State<CalendarScreen> {
-  CalendarController calendarController = CalendarController();
-  late CalendarDataSource? dataSource;
-
-  @override
-  void initState() {
-    dataSource = CalendarUtil.getDataSource();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lesson Planner'),
@@ -36,7 +28,7 @@ class _CalendarScreen extends State<CalendarScreen> {
                 monthViewSettings: const MonthViewSettings(
                     appointmentDisplayMode:
                         MonthAppointmentDisplayMode.appointment),
-                dataSource: dataSource,
+                dataSource: CalendarUtil.getDataSource(appointments),
                 allowDragAndDrop: true,
               ),
             ),

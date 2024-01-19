@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lesson_planner/constants/constants.dart' as c;
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({super.key, required this.titleText, this.titleStyle});
+  const MyTextField({
+    super.key,
+    required this.titleText,
+    this.titleStyle,
+    this.onChanged,
+  });
   final String titleText;
   final TextStyle? titleStyle;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +26,7 @@ class MyTextField extends StatelessWidget {
               horizontal: 4,
             ),
           ),
+          onChanged: onChanged,
         ),
       ],
     );

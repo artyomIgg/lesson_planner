@@ -1,7 +1,7 @@
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:lesson_planner/models/my_appointment.dart';
 
 abstract class UserModel {
-  final List<Appointment> schedule;
+  final List<MyAppointment> appointments;
 
-  UserModel({required this.schedule});
+  UserModel({required this.appointments});
 }

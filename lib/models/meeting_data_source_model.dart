@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Appointment> source){
-    appointments = source;
+class AppointmentDataSource extends CalendarDataSource {
+  AppointmentDataSource(List<Appointment> source) {
+    try {
+      source.first.color = Colors.red;
+
+      appointments = source;
+    } catch (e) {
+      appointments = source;
+    }
   }
 
   @override

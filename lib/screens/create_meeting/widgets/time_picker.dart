@@ -3,7 +3,19 @@ import 'package:lesson_planner/utils/my_date_util.dart';
 import 'package:lesson_planner/widgets/my_button.dart';
 
 class TimePicker extends StatefulWidget {
-  const TimePicker({super.key});
+  const TimePicker({
+    super.key,
+    this.onTimeSelected,
+    this.initDate,
+    this.initStartTime,
+    this.initEndTime,
+  });
+
+  final Function(DateTime, DateTime)? onTimeSelected;
+
+  final DateTime? initDate;
+  final DateTime? initStartTime;
+  final DateTime? initEndTime;
 
   @override
   State<TimePicker> createState() => _TimePickerState();
@@ -12,14 +24,17 @@ class TimePicker extends StatefulWidget {
 class _TimePickerState extends State<TimePicker> {
   late TimeOfDay selectedTimeFrom;
   late TimeOfDay selectedTimeTo;
-  late final DateTime now;
+  late final DateTime initDate;
 
   @override
   void initState() {
-    now = DateTime.now();
-    selectedTimeFrom = TimeOfDay.fromDateTime(now);
-    selectedTimeTo =
-        TimeOfDay.fromDateTime(now.add(const Duration(minutes: 30)));
+    initDate = widget.initDate ?? DateTime.now();
+    selectedTimeFrom = widget.initStartTime != null
+        ? TimeOfDay.fromDateTime(widget.initStartTime!)
+        : TimeOfDay.fromDateTime(MyDateUtil.initStartTime);
+    selectedTimeTo = widget.initEndTime != null
+        ? TimeOfDay.fromDateTime(widget.initEndTime!)
+        : TimeOfDay.fromDateTime(MyDateUtil.initEndTime);
 
     super.initState();
   }
@@ -36,9 +51,9 @@ class _TimePickerState extends State<TimePicker> {
             (selectedTimeTo.hour == selectedTimeFrom.hour &&
                 selectedTimeTo.minute >= selectedTimeFrom.minute);
 
-    final bool isFirstTimeIsAfterNow = selectedTimeFrom.hour > now.hour ||
-        (selectedTimeFrom.hour == now.hour &&
-            selectedTimeFrom.minute > now.minute);
+    final bool isFirstTimeIsAfterNow = selectedTimeFrom.hour > initDate.hour ||
+        (selectedTimeFrom.hour == initDate.hour &&
+            selectedTimeFrom.minute > initDate.minute);
 
     return Row(
       children: [
@@ -61,6 +76,11 @@ class _TimePickerState extends State<TimePicker> {
                   setState(() {
                     selectedTimeFrom = value;
                   });
+
+                  widget.onTimeSelected?.call(
+                    MyDateUtil.getDateTimeFromTimeOfDay(selectedTimeFrom),
+                    MyDateUtil.getDateTimeFromTimeOfDay(selectedTimeTo),
+                  );
                 }
                 // return value;
               });

@@ -16,9 +16,11 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     CalendarRoute.name: (routeData) {
+      final args = routeData.argsAs<CalendarRouteArgs>(
+          orElse: () => const CalendarRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CalendarScreen(),
+        child: CalendarScreen(key: args.key),
       );
     },
     CreateMeetingRoute.name: (routeData) {
@@ -32,16 +34,31 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [CalendarScreen]
-class CalendarRoute extends PageRouteInfo<void> {
-  const CalendarRoute({List<PageRouteInfo>? children})
-      : super(
+class CalendarRoute extends PageRouteInfo<CalendarRouteArgs> {
+  CalendarRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           CalendarRoute.name,
+          args: CalendarRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CalendarRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CalendarRouteArgs> page =
+      PageInfo<CalendarRouteArgs>(name);
+}
+
+class CalendarRouteArgs {
+  const CalendarRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CalendarRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
