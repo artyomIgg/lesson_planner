@@ -6,7 +6,12 @@ mixin MyTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: c.Colors.green,
-        // background: c.Colors.lightGreen,
-      )
+        secondary: c.Colors.orange,
+        background: c.Colors.lightGreen,
+      ),
+
+    appBarTheme: const AppBarTheme(
+      color: c.Colors.lightGreen,
+    ),
   );
 }

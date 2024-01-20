@@ -29,6 +29,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateMeetingScreen(),
       );
     },
+    MyCalendarRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: MyCalendarScreen(),
+      );
+    },
   };
 }
 
@@ -71,6 +77,20 @@ class CreateMeetingRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CreateMeetingRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MyCalendarScreen]
+class MyCalendarRoute extends PageRouteInfo<void> {
+  const MyCalendarRoute({List<PageRouteInfo>? children})
+      : super(
+          MyCalendarRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MyCalendarRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
