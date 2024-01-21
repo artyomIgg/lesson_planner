@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:lesson_planner/constants/constants.dart' as c;
 import 'package:lesson_planner/providers/calendar_provider/calendar_state_provider.dart';
+import 'package:lesson_planner/screens/my_calendar_screen/widgets/today_button.dart';
 
 @RoutePage()
 class MyCalendarScreen extends ConsumerWidget {
@@ -44,7 +45,7 @@ class MyCalendarScreen extends ConsumerWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           _monthView(context, selectedDate, ref),
-          const Divider(),
+          const Divider(color: c.Colors.lightGreen),
         ],
       ),
     );
@@ -174,7 +175,7 @@ class MyCalendarScreen extends ConsumerWidget {
             ],
           ),
           const Spacer(),
-          const Icon(Icons.calendar_today),
+          TodayButton(title: 'Today', onPressed: () {},),
         ],
       ),
     );

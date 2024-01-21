@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 mixin Colors {
   static const Color green = Color(0xFF00BFA6);
+  static const Color greenButton = Color(0xFF4DC591);
+  static const Color greenButtonText = Color(0xFF17BE67);
   static const Color lightGreen = Color(0xFFE0F2F1);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
