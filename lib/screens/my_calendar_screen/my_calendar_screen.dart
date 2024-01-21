@@ -20,13 +20,13 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Scrollable.ensureVisible(
-        selectedDateKey.currentContext!,
-        duration: Duration.zero,
-        curve: Curves.easeInOut,
-        alignment: 0.5,
-      );
+      ref.read(calendarStateProvider.notifier).scrollToDate(
+            ref.read(calendarStateProvider).selectedDate!,
+            selectedDateKey,
+            Duration.zero,
+          );
     });
+
     super.initState();
   }
 
@@ -37,7 +37,7 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: _dateAppBar(context),
+        title: _dateAppBar(context, selectedDate),
       ),
       body: _body(context, selectedDate, ref),
     );
@@ -78,7 +78,14 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: days
-              .map((date) => _dayCard(context, date, selectedDate, ref))
+              .map(
+                (date) => _dayCard(
+                  context,
+                  date,
+                  selectedDate,
+                  ref,
+                ),
+              )
               .toList(),
         ),
       ),
@@ -117,13 +124,9 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
 
     return GestureDetector(
       onTap: () {
-        ref.read(calendarStateProvider.notifier).changeDate(date);
-        Scrollable.ensureVisible(
-          key.currentContext!,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-          alignment: 0.5,
-        );
+        ref.read(calendarStateProvider.notifier)
+          ..changeDate(date)
+          ..scrollToDate(selectedDate, key);
       },
       child: AnimatedContainer(
         key: key,
@@ -157,11 +160,10 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
     return days;
   }
 
-  Widget _dateAppBar(BuildContext context) {
-    final DateTime now = DateTime.now();
-    final String dayOfWeek = DateFormat('EEE').format(now);
-    final String month = DateFormat('MMM').format(now);
-    final String year = DateFormat('yyyy').format(now);
+  Widget _dateAppBar(BuildContext context, DateTime date) {
+    final String dayOfWeek = DateFormat('EEE').format(date);
+    final String month = DateFormat('MMM').format(date);
+    final String year = DateFormat('yyyy').format(date);
 
     final textTheme = Theme.of(context);
     final titleSmall = TextStyle(
@@ -176,7 +178,7 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
       child: Row(
         children: [
           Text(
-            now.day.toString(),
+            date.day.toString(),
             style: const TextStyle(
               fontSize: 44,
               fontWeight: FontWeight.bold,
@@ -199,7 +201,13 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
           const Spacer(),
           TodayButton(
             title: 'Today',
-            onPressed: () {},
+            onPressed: () {
+              final DateTime now = DateTime.now();
+              selectedDateKey = GlobalObjectKey(now.day);
+              ref.read(calendarStateProvider.notifier)
+                ..changeDate(now)
+                ..scrollToDate(now, selectedDateKey);
+            },
           ),
         ],
       ),
