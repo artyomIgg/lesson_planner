@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -7,13 +6,31 @@ import 'package:lesson_planner/providers/calendar_provider/calendar_state_provid
 import 'package:lesson_planner/screens/my_calendar_screen/widgets/today_button.dart';
 
 @RoutePage()
-class MyCalendarScreen extends ConsumerWidget {
-  MyCalendarScreen({super.key});
-
-  final ScrollController _scrollController = ScrollController();
+class MyCalendarScreen extends ConsumerStatefulWidget {
+  const MyCalendarScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyCalendarScreen> createState() => _MyCalendarScreenState();
+}
+
+class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
+  late GlobalKey selectedDateKey;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Scrollable.ensureVisible(
+        selectedDateKey.currentContext!,
+        duration: Duration.zero,
+        curve: Curves.easeInOut,
+        alignment: 0.5,
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final DateTime selectedDate =
         ref.watch(calendarStateProvider).selectedDate ?? DateTime.now();
 
@@ -56,13 +73,13 @@ class MyCalendarScreen extends ConsumerWidget {
     final List<DateTime> days = _getCurrentMonthDays();
     return SizedBox(
       height: 56,
-      child: ListView.builder(
-        controller: _scrollController,
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        itemCount: days.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _dayCard(context, days[index], selectedDate, ref);
-        },
+        child: Row(
+          children: days
+              .map((date) => _dayCard(context, date, selectedDate, ref))
+              .toList(),
+        ),
       ),
     );
   }
@@ -92,6 +109,10 @@ class MyCalendarScreen extends ConsumerWidget {
     );
 
     final GlobalObjectKey key = GlobalObjectKey(date.day);
+
+    if (isCurrentDay) {
+      selectedDateKey = key;
+    }
 
     return GestureDetector(
       onTap: () {
@@ -175,7 +196,10 @@ class MyCalendarScreen extends ConsumerWidget {
             ],
           ),
           const Spacer(),
-          TodayButton(title: 'Today', onPressed: () {},),
+          TodayButton(
+            title: 'Today',
+            onPressed: () {},
+          ),
         ],
       ),
     );
