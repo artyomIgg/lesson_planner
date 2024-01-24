@@ -11,6 +11,7 @@ mixin Colors {
   static const Color redHover = Color(0xFFB71C1C);
   static const Color grey = Color(0xFFE0E0E0);
   static const Color greyHover = Color(0xFFBDBDBD);
+  static const Color greyLight = Color(0xffF6F6F5);
   static const Color greyText = Color(0xFF757575);
   static const Color greyTextHover = Color(0xFF616161);
   static const Color brightYellow = Color(0xFFFFD600);

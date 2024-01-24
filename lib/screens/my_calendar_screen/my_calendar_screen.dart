@@ -7,6 +7,7 @@ import 'package:lesson_planner/providers/calendar_provider/calendar_state_provid
 import 'package:lesson_planner/screens/my_calendar_screen/widgets/date_app_bar.dart';
 import 'package:lesson_planner/screens/my_calendar_screen/widgets/day_card.dart';
 import 'package:lesson_planner/screens/my_calendar_screen/widgets/month_view.dart';
+import 'package:lesson_planner/screens/my_calendar_screen/widgets/schedule_widget.dart';
 import 'package:lesson_planner/screens/my_calendar_screen/widgets/today_button.dart';
 
 @RoutePage()
@@ -40,6 +41,7 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         title: DateAppBar(
           date: selectedDate,
           onPressed: () {
@@ -87,6 +89,12 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
             },
           ),
           const Divider(color: c.Colors.lightGreen),
+          const Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 28),
+              child: ScheduleWidget(),
+            ),
+          ),
         ],
       ),
     );

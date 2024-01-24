@@ -19,4 +19,42 @@ mixin TextStyles {
     fontSize: 16,
     color: c.Colors.black,
   );
+
+  // MyCalendarScreen
+
+  static TextStyle meetCardTitleWhite = GoogleFonts.poppins(
+    fontSize: 16,
+    color: c.Colors.white,
+    fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle meetCardTitleBlack = GoogleFonts.poppins(
+    fontSize: 16,
+    color: c.Colors.black,
+    fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle meetCardDescriptionWhite = GoogleFonts.poppins(
+    fontSize: 12,
+    color: c.Colors.white,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle meetCardDescriptionBlack = GoogleFonts.poppins(
+    fontSize: 12,
+    color: c.Colors.black,
+    fontWeight: FontWeight.w500,
+  );
+  
+  static TextStyle meetCardStartTime = GoogleFonts.poppins(
+    fontSize: 16,
+    color: c.Colors.black,
+    fontWeight: FontWeight.w600,
+  );
+  
+  static TextStyle meetCardEndTime = GoogleFonts.poppins(
+    fontSize: 14,
+    color: c.Colors.black.withOpacity(.5),
+    fontWeight: FontWeight.w500,
+  );
 }
