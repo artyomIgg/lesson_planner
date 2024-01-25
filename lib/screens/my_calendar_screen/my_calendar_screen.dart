@@ -62,11 +62,13 @@ class _MyCalendarScreenState extends ConsumerState<MyCalendarScreen> {
         color: Colors.white,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(26),
+          bottom: Radius.circular(26),
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
-            blurRadius: 6,
+            blurRadius: 10,
+            offset: const Offset(0, -4),
           ),
         ],
       ),

@@ -7,7 +7,7 @@ mixin MyTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: c.Colors.green,
       secondary: c.Colors.orange,
-      background: c.Colors.lightGreen,
+      background: c.Colors.greyLight,
     ),
     buttonTheme: const ButtonThemeData(
       buttonColor: c.Colors.red,
@@ -40,7 +40,12 @@ mixin MyTheme {
       ),
     ),
     appBarTheme: const AppBarTheme(
-      color: c.Colors.lightGreen,
+      color: c.Colors.greyLight,
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: c.Colors.greyLight,
+      selectedItemColor: c.Colors.orange,
+      unselectedItemColor: c.Colors.greyTextHover,
     ),
   );
 }

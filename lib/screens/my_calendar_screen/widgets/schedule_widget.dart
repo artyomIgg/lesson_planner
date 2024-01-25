@@ -40,8 +40,7 @@ class ScheduleWidget extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: 500,
-            // shrinkWrap: true,
+            itemCount: 6,
             itemBuilder: (context, index) => _meetCard(
               textTheme,
               index == 0,

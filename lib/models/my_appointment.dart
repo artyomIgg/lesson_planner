@@ -1,11 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 part 'my_appointment.g.dart';
 
 @HiveType(typeId: 1)
-@freezed
 class MyAppointment extends Appointment {
   @HiveField(0)
   final String subject;
