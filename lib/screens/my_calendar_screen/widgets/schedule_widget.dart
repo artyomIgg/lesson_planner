@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lesson_planner/constants/constants.dart' as c;
+import '/src/utils/constants/constants.dart' as c;
 
 class ScheduleWidget extends StatelessWidget {
   const ScheduleWidget({super.key});

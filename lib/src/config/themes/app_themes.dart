@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/src/colors.dart' as c;
+import '../../utils/constants/constants.dart' as c;
 
 mixin AppThemes {
   static ThemeData mainAppTheme = ThemeData(

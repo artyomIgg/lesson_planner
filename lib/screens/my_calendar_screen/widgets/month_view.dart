@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lesson_planner/constants/constants.dart' as c;
+import '/src/utils/constants/constants.dart' as c;
 
 class MonthView extends StatelessWidget {
   const MonthView({

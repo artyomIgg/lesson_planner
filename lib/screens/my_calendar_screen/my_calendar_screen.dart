@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lesson_planner/constants/constants.dart' as c;
-import 'package:lesson_planner/providers/calendar_provider/calendar_state_provider.dart';
-import 'package:lesson_planner/screens/my_calendar_screen/widgets/date_app_bar.dart';
-import 'package:lesson_planner/screens/my_calendar_screen/widgets/month_view.dart';
-import 'package:lesson_planner/screens/my_calendar_screen/widgets/schedule_widget.dart';
+import '/src/utils/constants/constants.dart' as c;
+import '../../providers/calendar_provider/calendar_state_provider.dart';
+import 'widgets/date_app_bar.dart';
+import 'widgets/month_view.dart';
+import 'widgets/schedule_widget.dart';
 
 @RoutePage()
 class MyCalendarScreen extends ConsumerStatefulWidget {

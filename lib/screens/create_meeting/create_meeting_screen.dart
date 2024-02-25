@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lesson_planner/screens/create_meeting/create_meeting_body.dart';
-import 'package:lesson_planner/constants/constants.dart' as c;
+import 'create_meeting_body.dart';
+import '/src/utils/constants/constants.dart' as c;
 
 @RoutePage()
 class CreateMeetingScreen extends StatefulWidget {

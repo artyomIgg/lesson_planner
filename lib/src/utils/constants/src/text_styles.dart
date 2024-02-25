@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lesson_planner/constants/src/colors.dart' as c;
+import 'colors.dart' as c;
 
 mixin TextStyles {
   static TextStyle appBarTitle = GoogleFonts.poppins(
