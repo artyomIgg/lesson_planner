@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lesson_planner/screens/my_calendar_screen/my_calendar_screen.dart';
+import '../../../screens/my_calendar_screen/my_calendar_screen.dart';
 
-import '../../../screens/create_meeting/create_meeting_body.dart';
 import '../../../screens/create_meeting/create_meeting_screen.dart';
 import '../../../screens/home_screen/home_screen.dart';
 
