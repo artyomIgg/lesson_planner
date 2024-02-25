@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'colors.dart' as c;
+import '../../../constants/src/colors.dart' as c;
 
-mixin MyTheme {
+mixin AppThemes {
   static ThemeData mainAppTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
